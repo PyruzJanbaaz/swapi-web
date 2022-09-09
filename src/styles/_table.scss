@@ -1,0 +1,10 @@
+@import "color";
+
+table thead th a:link, table thead th a:visited {
+  text-decoration: none;
+  color: #333;
+}
+
+table thead th a:hover {
+  color: var(--swapi-grey);
+}
