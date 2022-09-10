@@ -4,11 +4,11 @@
     <thead>
     <tr>
       <th v-for="th in fields" :key="th">
-        <a href="#" @click="sort(th.key)">
+        <span @click="sort(th.key)">
           <em class="ri-arrow-up-s-line" v-if="th.key === sortedColumn && sortAsc"/>
           <em class="ri-arrow-down-s-line" v-if="th.key === sortedColumn && !sortAsc"/>
           {{ th.text }}
-        </a>
+        </span>
       </th>
     </tr>
     </thead>
@@ -66,5 +66,9 @@ export default {
 <style scoped>
 table thead th, table tbody td {
   text-align: center;
+}
+table thead th span:hover{
+  cursor: pointer;
+  color: var(--swapi-grey);
 }
 </style>

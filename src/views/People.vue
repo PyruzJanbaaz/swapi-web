@@ -86,6 +86,9 @@ export default {
           () => {
             this.loading = false;
             this.paginationVisibility = this.searchResult.count > 10;
+            if(this.sortColumn !== ''){
+              this.sort(this.searchResult.results, this.sortColumn);
+            }
           }
       );
     },
@@ -107,18 +110,31 @@ export default {
         this.ascending = true;
         this.sortColumn = col;
       }
+      this.sort(this.searchResult.results, col);
+    },
+    sort(arr, col) {
       const ascending = this.ascending;
-      this.searchResult.results.sort(function (a, b) {
-        if (a[col] > b[col]) {
-          return ascending ? 1 : -1
-        } else if (a[col] < b[col]) {
-          return ascending ? -1 : 1
+      const sorter = (a, b) => {
+        const isNumber = (v) => (+v).toString() === v;
+        const aPart = a[col].replace(/-/g, '').replace(/:/g, '').replace(/,/g, '').match(/\d+|\D+/g);
+        const bPart = b[col].replace(/-/g, '').replace(/:/g, '').replace(/,/g, '').match(/\d+|\D+/g);
+        let i = 0;
+        let len = Math.min(aPart.length, bPart.length);
+        while (i < len && aPart[i] === bPart[i]) {
+          i++;
         }
-        return 0;
-      });
+        if (i === len) {
+          return aPart.length - bPart.length;
+        }
+        if (isNumber(aPart[i]) && isNumber(bPart[i])) {
+          return ascending ? bPart[i] - aPart[i] : aPart[i] - bPart[i];
+        }
+        return ascending ? aPart[i].localeCompare(bPart[i]) : bPart[i].localeCompare(aPart[i]);
+      };
+      arr.sort(sorter);
       this.searchResult.sortAsc = this.ascending;
       this.searchResult.sortedColumn = col;
-    },
+    }
   }
 }
 </script>

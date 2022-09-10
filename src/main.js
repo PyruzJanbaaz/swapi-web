@@ -9,6 +9,7 @@ import 'bootstrap'
 import './styles/main.scss'
 import APIService from "@/service/api.service";
 
+
 APIService.init(process.env.VUE_APP_ROOT_API);
 const app = createApp(App);
 app.use(Vuex);
