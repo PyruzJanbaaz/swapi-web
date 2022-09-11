@@ -1,5 +1,14 @@
 # swapi-web
+Simple web application which is created by Vue.js to show the Star Wars characters!
 
+# Dependencies
+   - "bootstrap": "^5.1.3",
+   - "core-js": "^3.8.3",
+   - "remixicon": "^2.5.0",
+   - "vue": "^3.2.13",
+   - "vue-router": "^4.1.5",
+   - "vuex": "^4.0.2"
+   
 ## Project setup
 ```
 npm install
