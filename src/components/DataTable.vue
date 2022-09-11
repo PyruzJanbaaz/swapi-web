@@ -5,8 +5,8 @@
     <tr>
       <th v-for="th in fields" :key="th">
         <span @click="sort(th.key)">
-          <em class="ri-arrow-up-s-line" v-if="th.key === sortedColumn && sortAsc"/>
-          <em class="ri-arrow-down-s-line" v-if="th.key === sortedColumn && !sortAsc"/>
+          <em class="ri-arrow-up-s-line" v-if="th.key === sortedColumn && !sortAsc"/>
+          <em class="ri-arrow-down-s-line" v-if="th.key === sortedColumn && sortAsc"/>
           {{ th.text }}
         </span>
       </th>

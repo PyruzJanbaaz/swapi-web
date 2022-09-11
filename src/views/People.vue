@@ -15,7 +15,8 @@
               <input type="text" class="form-control"
                      placeholder="Type a name to search..."
                      v-model="query"
-                     @input="searchPeople">
+                     @input="reloadPeople"
+                     v-on:keyup.enter="searchPeople">
             </div>
           </div>
         </div>
@@ -32,7 +33,7 @@
               v-if="paginationVisibility"
               :total-pages="searchResult.totalPages"
               :total="searchResult.count"
-              :per-page="10"
+              :per-page="pageSize"
               :current-page="currentPage"
               @pageChanged="onPageChange"/>
         </div>
@@ -68,6 +69,7 @@ export default {
       query: '',
       ascending: false,
       sortColumn: '',
+      pageSize: 10
     }
   },
   created() {
@@ -85,18 +87,27 @@ export default {
       this.$store.dispatch('people/getPeople', this.searchParams).then(
           () => {
             this.loading = false;
-            this.paginationVisibility = this.searchResult.count > 10;
-            if(this.sortColumn !== ''){
+            this.paginationVisibility = this.searchResult.count > this.pageSize;
+            if (this.sortColumn !== '') {
               this.sort(this.searchResult.results, this.sortColumn);
             }
           }
       );
     },
     searchPeople() {
+      this.resetOptions();
+      this.getPeople();
+    },
+    reloadPeople() {
+      if (this.query === '') {
+        this.resetOptions();
+        this.getPeople();
+      }
+    },
+    resetOptions() {
       this.searchParams.pageNumber = 1;
       this.searchParams.search = this.query;
       this.currentPage = 1;
-      this.getPeople();
     },
     onPageChange(page) {
       this.currentPage = page;

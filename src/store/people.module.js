@@ -10,15 +10,16 @@ export const people = {
         async getPeople({commit}, data) {
             await PeopleService.getPeople(data.search, data.pageNumber).then(
                 (result) => {
+                    console.log(result.data)
                     commit('searchResult', result.data);
                 }
             );
         },
     },
     mutations: {
-        searchResult(state, data) {
-            data.data.totalPages = (data.data.count % 10 === 0 ? parseInt(data.data.count / 10) : parseInt(data.data.count / 10) + 1);
-            state.searchResult = data;
+        searchResult(state, result) {
+            result.data.totalPages = (result.data.count % 10 === 0 ? parseInt(result.data.count / 10) : parseInt(result.data.count / 10) + 1);
+            state.searchResult = result;
         },
         searchParams(state, data) {
             state.searchParams = data;

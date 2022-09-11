@@ -1,6 +1,4 @@
 import axios from "axios";
-import router from "@/router";
-import {StatusCodes} from 'http-status-codes';
 
 const APIService = {
     init(baseURL) {
@@ -10,16 +8,14 @@ const APIService = {
             config.headers.common['Access-Control-Allow-Origin'] = '*';
             return config;
         });
-        axios.interceptors.response.use(response => {
+        axios.interceptors.response.use(
+            response => {
                 return response
             },
             error => {
-                console.log(error.response.status)
-                if (error.response.status === StatusCodes.INTERNAL_SERVER_ERROR) {
-                    router.push('/500');
-                }
                 return Promise.reject(error)
-            });
+            }
+        );
     },
 
     get(resource, params) {

@@ -1,7 +1,6 @@
 import {createWebHistory, createRouter} from "vue-router";
 import People from "@/views/People.vue";
 import NotFound from "@/views/client/NotFound.vue";
-import ServerError from "@/views/client/ServerError";
 
 const routes = [
     {
@@ -11,13 +10,9 @@ const routes = [
     },
     {
         path: "/:catchAll(.*)",
+        name: "NotFound",
         component: NotFound,
     },
-    {
-        path: "/500",
-        component: ServerError,
-    },
-
 ];
 
 const router = createRouter({
