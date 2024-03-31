@@ -78,7 +78,7 @@ export default {
   computed: {
     ...mapState('people', ['searchParams']),
     searchResult() {
-      return this.$store.getters['people/getSearchResult'].data;
+      return this.$store.getters['people/getSearchResult'];
     },
   },
   methods: {
@@ -149,7 +149,3 @@ export default {
   }
 }
 </script>
-
-<style scoped>
-
-</style>

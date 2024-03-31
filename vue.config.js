@@ -5,7 +5,7 @@ module.exports = defineConfig({
     devServer: {
         proxy: {
             '/swapi/api/': {
-                target: 'http://localhost:7777',
+                target: 'http://localhost:8088',
                 secure: false,
                 logLevel: 'debug',
                 changeOrigin: true
